@@ -1,0 +1,47 @@
+* {
+    background-color: white;
+
+}
+
+body {
+    margin: 0px 10px 10px 10px;
+}
+
+header {
+    height: 50px;
+    width: 100%;
+    background-color: lightblue;
+    font-family: 'Instrument Serif', serif;
+    font-size: 40px;
+    color: Black;
+    font-weight: bolder;
+}
+
+main {
+    display:flex;
+}
+
+aside {
+    width: 35%;
+    height: 700px;
+    background-color: blue;
+    display:inline-block;
+
+}
+
+#weatherWrap{
+    width:64%;
+    vertical-align: top;
+    flex:1;
+}
+
+#weatherBox {
+    height: 400px;
+    background-color: green;
+    
+}
+
+#weatherBox2 {
+    height: 400px;
+    background-color: blueviolet;
+}
