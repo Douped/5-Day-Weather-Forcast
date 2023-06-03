@@ -11,14 +11,15 @@ header {
     height: 50px;
     width: 100%;
     background-color: lightblue;
-    font-family: 'Instrument Serif', serif;
     font-size: 40px;
     color: Black;
     font-weight: bolder;
+
 }
 
 main {
     display:flex;
+    flex-direction:row-reverse;
 }
 
 aside {
@@ -29,6 +30,26 @@ aside {
 
 }
 
+#searchText{
+    font-family: 'Instrument Serif', serif;
+    font-size: 30px;
+    font-weight: bold;
+    float:left;
+}
+
+#searchBox{
+    background-color: rgba(107, 99, 99, 0.233);
+    color:black;
+    font-family: 'Instrument Serif', serif;
+    font-size: 20px;
+}
+
+.row{
+    background-color: blue;
+}
+#red{
+    background-color: red;
+}
 #weatherWrap{
     width:64%;
     vertical-align: top;
