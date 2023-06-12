@@ -13,22 +13,22 @@ async function getWeatherData(searchRequest) {
   try {
     const response = await fetch(weatherData);
     const data = await response.json();
-    console.log("response: ", data);
+    ("response: ", data);
     if (data.cod != '404') {
       return data;
     } else {
-      console.log("No city found.");
+      ("No city found.");
       return '';
     }
   }
   catch (error) {
-    console.log(error);
+    (error);
     return '';
   }
 }
 
 function getWeatherIcon(id) {
-  console.log(id);
+  (id);
   switch (id) {
     case '01d':
       return 'wi wi-day-sunny';
@@ -85,7 +85,7 @@ function renderSearchHistory() {
     searchHistory.innerHTML = '';
     let dataArray = JSON.parse(currentData);
     dataArray.forEach(x => {
-      console.log(x);
+      (x);
       searchHistory.innerHTML += `<button class = "historyResult" data-city="${x}">${x}</button>`;
     });
     renderHistoryButtons();
@@ -121,7 +121,7 @@ searchButton.addEventListener('click', async function () {
 function renderHistoryButtons(){
   let historyList = document.querySelectorAll('.historyResult');
   historyList.forEach(x => {
-    console.log("a");
+    ("a");
     x.addEventListener('click', async ()=>{
       
       let data = await getWeatherData(x.dataset.city);
