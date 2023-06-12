@@ -34,6 +34,7 @@ aside {
     font-size: 25px;
 }
 
+
 #searchText{
     font-family: 'Instrument Serif', serif;
     font-size: 30px;
@@ -43,6 +44,10 @@ aside {
 #searchArea{
     display: flex;
     align-items:center;
+    flex-direction: column;
+}
+#searchHistory{
+    display: flex;
     flex-direction: column;
 }
 #searchArea button{
