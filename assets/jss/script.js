@@ -45,10 +45,10 @@ function getWeatherIcon(id) {
 
 function renderWeatherData(data) {
   //get current hour
-  let day = parseInt(dayjs().format("H"));
-  console.log(day);
-  //display current forecast
-  console.log("added to html");
+  //let day = parseInt(dayjs().format("H"));
+
+  //clear forecast box
+  currentForecastBox.innerHTML = '';
   //set an icon based on forecast
   currentForecastBox.innerHTML += `<div>
     <h2>${searchBox.value} (${dayjs().format("M/D/YYYY")}) <i class = "${getWeatherIcon(data.list[2].weather[0].icon)}"></i></h2>
@@ -61,6 +61,8 @@ function renderWeatherData(data) {
 
   //display 5 day forecast
   forecastTitle.style.display = "block";
+  //clear forecast box
+  fiveDayForecastBox.innerHTML = '';
   //data.list[2] is where the next day's forecast starts. every 8 indexes is where the next date is
   for (x = 2; x < 35; x+= 8) {
     fiveDayForecastBox.innerHTML +=
@@ -76,24 +78,29 @@ function renderWeatherData(data) {
   }
 
 }
-function renderSearchBar(){
-
-}
-function renderSearchHistory(){
-  //get search history from local storage
+function renderSearchHistory() {
   let currentData = localStorage.getItem("history");
-  if(currentData){
-    let dataArray = currentData.split("-");
+  if (currentData) {
+    searchHistory.innerHTML = '';
+    let dataArray = JSON.parse(currentData);
     dataArray.forEach(x => {
-      searchHistory.innerHTML + `<p>${x}</p>`
+      console.log(x);
+      searchHistory.innerHTML += `<p>${x}</p>`;
     });
-  
   }
- 
 }
-function addToSearchHistory(){
-    //
-  localStorage.setItem("history", searchBox.value + "-");
+
+function addToSearchHistory() {
+  let data = localStorage.getItem("history");
+  let searchValue = (searchBox.value).trim();
+
+  if (data) {
+    let dataArray = JSON.parse(data);
+    dataArray.push(searchValue);
+    localStorage.setItem("history", JSON.stringify(dataArray));
+  } else {
+    localStorage.setItem("history", JSON.stringify([searchValue]));
+  }
 }
 
 searchButton.addEventListener('click', async function () {
@@ -101,9 +108,10 @@ searchButton.addEventListener('click', async function () {
   if (data != '') {
     renderWeatherData(data);
     addToSearchHistory();
+    renderSearchHistory();
   }
 });
 
 //on startup get search history
-getSearchHistory();
+renderSearchHistory();
 
