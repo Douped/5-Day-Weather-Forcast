@@ -85,7 +85,7 @@ function renderSearchHistory() {
     let dataArray = JSON.parse(currentData);
     dataArray.forEach(x => {
       console.log(x);
-      searchHistory.innerHTML += `<p>${x}</p>`;
+      searchHistory.innerHTML += `<p class = "historyResult">${x}</p>`;
     });
   }
 }

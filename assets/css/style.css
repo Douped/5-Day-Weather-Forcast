@@ -29,6 +29,10 @@ aside {
     display:inline-block;
 
 }
+.historyResult{
+    font-family: 'Instrument serif', serif;
+    font-size: 25px;
+}
 
 #searchText{
     font-family: 'Instrument Serif', serif;
@@ -40,6 +44,9 @@ aside {
     display: flex;
     align-items:center;
     flex-direction: column;
+}
+#searchArea button{
+    margin-top: 5px;
 }
 
 #searchBox{
