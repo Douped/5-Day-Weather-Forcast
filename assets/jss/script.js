@@ -1,10 +1,11 @@
 
-const searchButton = document.querySelector('button');
+const searchButton = document.getElementById('searchButton');
 const searchBox = document.getElementById('searchBox');
 const currentForecastBox = document.getElementById('currentForecast');
 const fiveDayForecastBox = document.getElementById('fiveDayForecast');
 const forecastTitle = document.getElementById('forecastTitle');
 const searchHistory = document.getElementById('searchHistory');
+
 
 async function getWeatherData(searchRequest) {
   let apiKey = "3c7baa62a4ecfa83ed87560be3d550f3";
@@ -51,7 +52,7 @@ function renderWeatherData(data) {
   currentForecastBox.innerHTML = '';
   //set an icon based on forecast
   currentForecastBox.innerHTML += `<div>
-    <h2>${searchBox.value} (${dayjs().format("M/D/YYYY")}) <i class = "${getWeatherIcon(data.list[2].weather[0].icon)}"></i></h2>
+    <h2>${data.city.name} (${dayjs().format("M/D/YYYY")}) <i class = "${getWeatherIcon(data.list[2].weather[0].icon)}"></i></h2>
     <p> 
     Temp: ${data.list[0].main.temp}
     Wind: ${data.list[0].wind.speed} MPH
@@ -85,8 +86,9 @@ function renderSearchHistory() {
     let dataArray = JSON.parse(currentData);
     dataArray.forEach(x => {
       console.log(x);
-      searchHistory.innerHTML += `<p class = "historyResult">${x}</p>`;
+      searchHistory.innerHTML += `<button class = "historyResult" data-city="${x}">${x}</button>`;
     });
+    renderHistoryButtons();
   }
 }
 
@@ -103,6 +105,9 @@ function addToSearchHistory() {
   }
 }
 
+//on startup get search history
+renderSearchHistory();
+
 searchButton.addEventListener('click', async function () {
   const data = await getWeatherData(searchBox.value);
   if (data != '') {
@@ -112,6 +117,15 @@ searchButton.addEventListener('click', async function () {
   }
 });
 
-//on startup get search history
-renderSearchHistory();
-
+//add event listeners for history buttons
+function renderHistoryButtons(){
+  let historyList = document.querySelectorAll('.historyResult');
+  historyList.forEach(x => {
+    console.log("a");
+    x.addEventListener('click', async ()=>{
+      
+      let data = await getWeatherData(x.dataset.city);
+      renderWeatherData(data);
+    })
+  });
+}
