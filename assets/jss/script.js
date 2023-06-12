@@ -65,9 +65,9 @@ function renderWeatherData(data) {
   //clear forecast box
   fiveDayForecastBox.innerHTML = '';
   //data.list[2] is where the next day's forecast starts. every 8 indexes is where the next date is
-  for (x = 2; x < 35; x+= 8) {
+  for (x = 2; x < 35; x += 8) {
     fiveDayForecastBox.innerHTML +=
-     `<div class = "forecastTile">
+      `<div class = "forecastTile">
      <h4>(${(data.list[x].dt_txt).split(" ")[0]})</h4>
      <i class = "${getWeatherIcon(data.list[x].weather[0].icon)}"></i>
      <p> 
@@ -98,9 +98,12 @@ function addToSearchHistory() {
 
   if (data) {
     let dataArray = JSON.parse(data);
-    dataArray.push(searchValue);
-    localStorage.setItem("history", JSON.stringify(dataArray));
-  } else {
+    if (!dataArray.includes(searchValue)) {
+      dataArray.push(searchValue);
+      localStorage.setItem("history", JSON.stringify(dataArray));
+    }
+  }
+  else {
     localStorage.setItem("history", JSON.stringify([searchValue]));
   }
 }
@@ -118,12 +121,12 @@ searchButton.addEventListener('click', async function () {
 });
 
 //add event listeners for history buttons
-function renderHistoryButtons(){
+function renderHistoryButtons() {
   let historyList = document.querySelectorAll('.historyResult');
   historyList.forEach(x => {
     ("a");
-    x.addEventListener('click', async ()=>{
-      
+    x.addEventListener('click', async () => {
+
       let data = await getWeatherData(x.dataset.city);
       renderWeatherData(data);
     })
