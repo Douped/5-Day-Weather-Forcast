@@ -3,6 +3,8 @@ const searchButton = document.querySelector('button');
 const searchBox = document.getElementById('searchBox');
 const currentForecastBox = document.getElementById('currentForecast');
 const fiveDayForecastBox = document.getElementById('fiveDayForecast');
+const forecastTitle = document.getElementById('forecastTitle');
+const searchHistory = document.getElementById('searchHistory');
 
 async function getWeatherData(searchRequest) {
   let apiKey = "3c7baa62a4ecfa83ed87560be3d550f3";
@@ -57,20 +59,51 @@ function renderWeatherData(data) {
     </p>
     </div>`;
 
-
-
   //display 5 day forecast
-  for (x = 0; x < 5; x++) {
-
+  forecastTitle.style.display = "block";
+  //data.list[2] is where the next day's forecast starts. every 8 indexes is where the next date is
+  for (x = 2; x < 35; x+= 8) {
+    fiveDayForecastBox.innerHTML +=
+     `<div class = "forecastTile">
+     <h4>(${(data.list[x].dt_txt).split(" ")[0]})</h4>
+     <i class = "${getWeatherIcon(data.list[x].weather[0].icon)}"></i>
+     <p> 
+    Temp: ${data.list[x].main.temp}
+    Wind: ${data.list[x].wind.speed} MPH
+    Humidity: ${data.list[x].main.humidity}
+    </p>
+     </div>`;
   }
 
 }
+function renderSearchBar(){
 
+}
+function renderSearchHistory(){
+  //get search history from local storage
+  let currentData = localStorage.getItem("history");
+  if(currentData){
+    let dataArray = currentData.split("-");
+    dataArray.forEach(x => {
+      searchHistory.innerHTML + `<p>${x}</p>`
+    });
+  
+  }
+ 
+}
+function addToSearchHistory(){
+    //
+  localStorage.setItem("history", searchBox.value + "-");
+}
 
 searchButton.addEventListener('click', async function () {
   const data = await getWeatherData(searchBox.value);
   if (data != '') {
     renderWeatherData(data);
+    addToSearchHistory();
   }
 });
+
+//on startup get search history
+getSearchHistory();
 

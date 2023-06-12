@@ -36,6 +36,11 @@ aside {
     font-weight: bold;
     float:left;
 }
+#searchArea{
+    display: flex;
+    align-items:center;
+    flex-direction: column;
+}
 
 #searchBox{
     background-color: rgba(107, 99, 99, 0.233);
@@ -47,9 +52,6 @@ aside {
 .row{
     background-color: blue;
 }
-#red{
-    background-color: red;
-}
 #weatherWrap{
     width:64%;
     vertical-align: top;
@@ -58,11 +60,26 @@ aside {
 
 #weatherBox {
     height: 400px;
-    background-color: green;
-    
 }
 
 #weatherBox2 {
     height: 400px;
-    background-color: blueviolet;
+}
+#fiveDayForecast {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+#forecastTitle{
+    display:none;
+}
+.forecastTile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+    padding: 10px;
+    width: 200px;
+    height: 250px;
 }
